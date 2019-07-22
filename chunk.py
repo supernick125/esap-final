@@ -2,12 +2,13 @@ from grass import *
 from dirt import *
 from bedrock import *
 from tree import *
-
+from tnt import *
 
 class Chunk:
     def __init__(self):
         self.blocks = []
         self.blocks.append(Tree())
+        self.blocks.append(Tnt((0,1,0)))
         for x in range(3):
             for z in range(3):
                 for y in range(4):
