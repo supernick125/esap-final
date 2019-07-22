@@ -24,9 +24,9 @@ class Block:
 
     def __init__(self,pos):
 
-        self.top = self.get_tex("grass_top.png")
-        self.side = self.get_tex("grass_side.png")
-        self.bottom = self.get_tex("dirt.png")
+        self.top = self.get_tex("textures/grass_top.png")
+        self.side = self.get_tex("textures/grass_side.png")
+        self.bottom = self.get_tex("textures/dirt.png")
 
         self.batch = pyglet.graphics.Batch()
 
