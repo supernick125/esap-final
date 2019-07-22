@@ -8,11 +8,11 @@ class Block:
         glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST)
         return pyglet.graphics.TextureGroup(tex)
 
-    def __init__(self,pos):
+    def __init__(self,pos,top_tex,side_tex,bottom_tex):
 
-        self.top = self.get_tex("textures/grass_top.png")
-        self.side = self.get_tex("textures/grass_side.png")
-        self.bottom = self.get_tex("textures/dirt.png")
+        self.top = self.get_tex(self.top_tex)
+        self.side = self.get_tex(self.side_tex)
+        self.bottom = self.get_tex(self.bottom_tex)
 
         self.batch = pyglet.graphics.Batch()
 
