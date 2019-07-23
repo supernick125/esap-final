@@ -33,8 +33,10 @@ class Window(pyglet.window.Window):
         self.projectiles = Projectiles()
         self.player = Player((0.5,2,2),(0,-90))
 
+        self.chunk.get_pos()
+
     def on_mouse_press(self,x,y,BUTTON,MOD):
-        if self.mouse_lock and BUTTON == mouse.LEFT: self.projectiles.add_to_projectiles(self.player.mouse_press(x,y,BUTTON))
+        if self.mouse_lock and BUTTON == mouse.LEFT: self.chunk.get_pos()#self.projectiles.add_to_projectiles(self.player.mouse_press(x,y,BUTTON))
 
     def on_mouse_motion(self,x,y,dx,dy):
         if self.mouse_lock: self.player.mouse_motion(dx,dy)

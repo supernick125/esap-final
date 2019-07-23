@@ -1,3 +1,4 @@
+from projectile import *
 
 class Projectiles:
 
@@ -6,6 +7,7 @@ class Projectiles:
 
     def __init__(self):
         self.projectiles = []
+        self.projectiles.append(Projectile([-1,0,0],[0,0]))
 
     def draw(self):
         for projectile in self.projectiles:

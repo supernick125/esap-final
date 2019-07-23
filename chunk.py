@@ -4,7 +4,7 @@ from bedrock import *
 from tree import *
 from tnt import *
 
-import random 
+import random
 
 class Chunk:
 
@@ -22,10 +22,12 @@ class Chunk:
                         self.blocks.append(Dirt((x,-y,z)))
                     elif y == 3:
                         self.blocks.append(Bedrock((x,-y,z)))
-           
 
-        
-      
+    def get_pos(self):
+        self.block_pos = []
+        for block in self.blocks:
+            self.block_pos.append(block.pos)
+        print(self.block_pos)
 
     def draw(self):
         for block in self.blocks:

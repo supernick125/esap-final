@@ -15,11 +15,12 @@ class Block:
         self.side = self.get_tex(self.side_tex)
         self.bottom = self.get_tex(self.bottom_tex)
 
+        self.pos = pos
         self.batch = pyglet.graphics.Batch()
 
         tex_coords = ("t2f", (0,0, 1,0, 1,1, 0,1))
 
-        x,y,z = pos[0],pos[1],pos[2]
+        x,y,z = self.pos[0],self.pos[1],self.pos[2]
         X,Y,Z = x+1,y+1,z+1
 
         self.batch.add(4,GL_QUADS,self.side,("v3f",(X,y,z, x,y,z, x,Y,z, X,Y,z)), tex_coords) #back
