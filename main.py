@@ -7,8 +7,7 @@ from pyglet.gl import *
 from pyglet.window import key, mouse
 
 from player import *
-from block import *
-from chunk import *
+from world import *
 
 #collision updates
 
@@ -33,7 +32,7 @@ class Window(pyglet.window.Window):
         self.push_handlers(self.keys)
         pyglet.clock.schedule(self.update)
 
-        self.chunk = Chunk()
+        self.world = World()
         self.player = Player((0.5,2,2),(0,-90))
 
     def on_mouse_press(self,x,y,BUTTON,MOD):
@@ -53,7 +52,7 @@ class Window(pyglet.window.Window):
         self.clear()
         self.set3d()
         self.push(self.player.pos,self.player.rot)
-        self.chunk.draw()
+        self.world.draw()
         glPopMatrix()
 
 def main():
