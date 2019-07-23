@@ -13,10 +13,6 @@ class Chunk:
     def __init__(self):
         self.blocks = []
         self.blocks.append(Tree())
-<<<<<<< HEAD
-=======
-
->>>>>>> f225a1f4d79af6494bcca9ce73f5ab95aa4fe537
         self.blocks.append(Tnt((0,1,0)))
 
 
@@ -52,19 +48,19 @@ class Chunk:
 
         
 
-<<<<<<< HEAD
+
     # def get_pos(self):
     #     self.block_pos = []
     #     for block in self.blocks:
     #         self.block_pos.append(block.pos)
     #     print(self.block_pos)
-=======
+
     '''def get_pos(self):
         self.block_pos = []
         for block in self.blocks:
             self.block_pos.app end(block.pos)
         print(self.block_pos)'''
->>>>>>> f225a1f4d79af6494bcca9ce73f5ab95aa4fe537
+
 
     def draw(self):
         for block in self.blocks:
