@@ -5,6 +5,7 @@ from player import *
 from block import *
 from chunk import *
 import math
+#collision updates
 
 class Window(pyglet.window.Window):
 
@@ -31,7 +32,7 @@ class Window(pyglet.window.Window):
         self.player = Player((0.5,2,2),(0,-90))
 
     def on_mouse_press(self,x,y,BUTTON,MOD):
-        if self.mouse_lock: self.player.mouse_press(x,y,BUTTON)
+        if self.mouse_lock: self.chunk.add_to_projectiles(self.player.mouse_press(x,y,BUTTON))
 
     def on_mouse_motion(self,x,y,dx,dy):
         if self.mouse_lock: self.player.mouse_motion(dx,dy)
@@ -42,6 +43,7 @@ class Window(pyglet.window.Window):
 
     def update(self,dt):
         self.player.update(dt,self.keys)
+        self.chunk.update(dt)
 
     def on_draw(self):
         self.clear()
