@@ -14,7 +14,7 @@ class Window(pyglet.window.Window):
     def Projection(self): glMatrixMode(GL_PROJECTION); glLoadIdentity()
     def Model(self): glMatrixMode(GL_MODELVIEW); glLoadIdentity()
     def set2d(self): self.Projection(); gluOrtho2D(0,self.width,0,self.height); self.Model
-    def set3d(self): self.Projection(); gluPerspective(70,self.width/self.height,0.05,1000); self.Model
+    def set3d(self): self.Projection(); gluPerspective(70,self.width/self.height,0.05,1000)#; self.Model
 
     def setLock(self,state): self.lock = state; self.set_exclusive_mouse(state)
     lock = False; mouse_lock = property(lambda self: self.lock,setLock)
@@ -32,7 +32,7 @@ class Window(pyglet.window.Window):
         self.player = Player((0.5,2,2),(0,-90))
 
     def on_mouse_press(self,x,y,BUTTON,MOD):
-        if self.mouse_lock: self.chunk.add_to_projectiles(self.player.mouse_press(x,y,BUTTON))
+        if self.mouse_lock and BUTTON == mouse.LEFT: self.chunk.add_to_projectiles(self.player.mouse_press(x,y,BUTTON))
 
     def on_mouse_motion(self,x,y,dx,dy):
         if self.mouse_lock: self.player.mouse_motion(dx,dy)

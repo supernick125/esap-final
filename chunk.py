@@ -34,4 +34,4 @@ class Chunk:
 
     def update(self,dt):
         for projectile in self.projectiles:
-            projectile.update(dt)
+            projectile.update2(dt)

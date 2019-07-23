@@ -13,7 +13,7 @@ class Player:
         return Projectile(self.pos,self.rot)
 
     def mouse_press(self,x,y,BUTTON):
-        if BUTTON == mouse.LEFT: return self.fire()
+        return self.fire()
 
     def mouse_motion(self,dx,dy):
         dx/=8; dy/=8; self.rot[0] += dy; self.rot[1] -= dx
