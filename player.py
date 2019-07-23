@@ -1,6 +1,5 @@
 from pyglet.window import key
 from pyglet.window import mouse
-from projectile import *
 import math
 #get coords function
 
@@ -10,7 +9,7 @@ class Player:
         self.rot = list(rot)
 
     def fire(self):
-        return Projectile(self.pos.copy(),self.rot.copy())
+        print("pew")
 
     def mouse_press(self,x,y,BUTTON):
         return self.fire()

@@ -1,4 +1,4 @@
-from block import * 
+from block import *
 
 class Spruce(Block):
 	def __init__(self,pos):

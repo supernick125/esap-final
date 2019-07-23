@@ -30,15 +30,7 @@ class Window(pyglet.window.Window):
         pyglet.clock.schedule(self.update)
 
         self.chunk = Chunk()
-        self.projectiles = Projectiles()
         self.player = Player((0.5,2,2),(0,-90))
-
-<<<<<<< HEAD
-        print()
-
-=======
->>>>>>> f225a1f4d79af6494bcca9ce73f5ab95aa4fe537
-        #self.chunk.get_pos()
 
     def on_mouse_press(self,x,y,BUTTON,MOD):
         if self.mouse_lock and BUTTON == mouse.LEFT: self.projectiles.add_to_projectiles(self.player.mouse_press(x,y,BUTTON))
@@ -52,14 +44,12 @@ class Window(pyglet.window.Window):
 
     def update(self,dt):
         self.player.update(dt,self.keys)
-        self.projectiles.update(dt)
 
     def on_draw(self):
         self.clear()
         self.set3d()
         self.push(self.player.pos,self.player.rot)
         self.chunk.draw()
-        self.projectiles.draw()
         glPopMatrix()
 
 if __name__ == "__main__":
