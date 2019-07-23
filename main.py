@@ -4,6 +4,7 @@ from pyglet.window import mouse
 from player import *
 from block import *
 from chunk import *
+from projectiles import *
 import math
 #collision updates
 
@@ -29,10 +30,11 @@ class Window(pyglet.window.Window):
         pyglet.clock.schedule(self.update)
 
         self.chunk = Chunk()
+        self.projectiles = Projectiles()
         self.player = Player((0.5,2,2),(0,-90))
 
     def on_mouse_press(self,x,y,BUTTON,MOD):
-        if self.mouse_lock and BUTTON == mouse.LEFT: self.chunk.add_to_projectiles(self.player.mouse_press(x,y,BUTTON))
+        if self.mouse_lock and BUTTON == mouse.LEFT: self.projectiles.add_to_projectiles(self.player.mouse_press(x,y,BUTTON))
 
     def on_mouse_motion(self,x,y,dx,dy):
         if self.mouse_lock: self.player.mouse_motion(dx,dy)
@@ -43,13 +45,14 @@ class Window(pyglet.window.Window):
 
     def update(self,dt):
         self.player.update(dt,self.keys)
-        self.chunk.update(dt)
+        self.projectiles.update(dt)
 
     def on_draw(self):
         self.clear()
         self.set3d()
         self.push(self.player.pos,self.player.rot)
         self.chunk.draw()
+        self.projectiles.draw()
         glPopMatrix()
 
 if __name__ == "__main__":
