@@ -33,8 +33,11 @@ class Window(pyglet.window.Window):
         self.projectiles = Projectiles()
         self.player = Player((0.5,2,2),(0,-90))
 
+<<<<<<< HEAD
         print()
 
+=======
+>>>>>>> f225a1f4d79af6494bcca9ce73f5ab95aa4fe537
         #self.chunk.get_pos()
 
     def on_mouse_press(self,x,y,BUTTON,MOD):
