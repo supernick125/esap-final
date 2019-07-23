@@ -1,10 +1,15 @@
+#Bobby and Nick ESAPCS July 2019
+
+import math
+from collections import deque
+
 from pyglet.gl import *
-from pyglet.window import key
-from pyglet.window import mouse
+from pyglet.window import key, mouse
+
 from player import *
 from block import *
 from chunk import *
-import math
+
 #collision updates
 
 class Window(pyglet.window.Window):
@@ -51,9 +56,12 @@ class Window(pyglet.window.Window):
         self.chunk.draw()
         glPopMatrix()
 
-if __name__ == "__main__":
+def main():
     window = Window(width=1500,height=700,caption="Minecraft",resizable=True)
     glClearColor(0.5,0.7,1,1)
     glEnable(GL_DEPTH_TEST)
-    glEnable(GL_CULL_FACE) #Only renders visible faces
+    glEnable(GL_CULL_FACE)
     pyglet.app.run()
+
+if __name__ == "__main__":
+    main()
