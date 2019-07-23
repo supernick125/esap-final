@@ -10,7 +10,7 @@ class Player:
         self.rot = list(rot)
 
     def fire(self):
-        return Projectile(self.pos,self.rot)
+        return Projectile(self.pos.copy(),self.rot.copy())
 
     def mouse_press(self,x,y,BUTTON):
         return self.fire()

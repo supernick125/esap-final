@@ -11,7 +11,7 @@ class Chunk:
     #ADD TO BLOCK LIST!!!
     def __init__(self):
         self.blocks = []
-        self.blocks.append(Tree(randx, randy, randz))
+        self.blocks.append(Tree())
         self.blocks.append(Tnt((0,1,0)))
         for x in range(3):
             for z in range(3):
@@ -23,11 +23,11 @@ class Chunk:
                     elif y == 3:
                         self.blocks.append(Bedrock((x,-y,z)))
 
-    def get_pos(self):
-        self.block_pos = []
-        for block in self.blocks:
-            self.block_pos.append(block.pos)
-        print(self.block_pos)
+    # def get_pos(self):
+    #     self.block_pos = []
+    #     for block in self.blocks:
+    #         self.block_pos.append(block.pos)
+    #     print(self.block_pos)
 
     def draw(self):
         for block in self.blocks:

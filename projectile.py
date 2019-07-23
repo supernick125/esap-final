@@ -1,4 +1,5 @@
 from pyglet.gl import *
+import glm
 #move in direction of camera facing
 
 class Projectile:
@@ -13,7 +14,7 @@ class Projectile:
         self.batch = pyglet.graphics.Batch()
         self.proj_pos = pos
         self.rot = rot
-        self.vel = [1,1,0]
+        self.vel = [5,0,0]
 
         self.top = self.get_tex("textures/tnt_top.png")
         self.side = self.get_tex("textures/tnt_side.png")
@@ -41,13 +42,13 @@ class Projectile:
         self.batch.add(4,GL_QUADS,self.top,self.top_verts, tex_coords) #top
 
     def draw(self):
-        #glTranslatef(self.proj_pos[0],self.proj_pos[1],self.proj_pos[2])
-
+        glTranslatef(self.proj_pos[0],self.proj_pos[1],self.proj_pos[2])
         self.batch.draw()
 
     def update2(self,dt):
         s = dt * 1
         self.proj_pos[0] += self.vel[0] * s
-        self.proj_pos[1] += self.vel[1] * s
-        self.proj_pos[2] += self.vel[2] * s
+        # self.proj_pos[1] += self.vel[1] * s
+        # self.proj_pos[2] += self.vel[2] * s
+        #glTranslatef(self.vel[0],self.vel[1],self.vel[2])
         #print("vel: {} pos: {}".format(self.vel,self.proj_pos))
