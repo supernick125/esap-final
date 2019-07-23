@@ -1,5 +1,5 @@
 from spruce import *
-from pinkleaf import *
+from leaves import *
 
 class Tree:
 	def __init__(self):
