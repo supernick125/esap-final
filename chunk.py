@@ -36,9 +36,6 @@ class Chunk:
                             self.blocks.append(Dirt((self.pos[0] + x,-y,self.pos[2] + z)))
                         elif y == 2:
                             self.blocks.append(Bedrock((self.pos[0] + x,-y,self.pos[2] + z)))
-
-
-
         if biome == 'desert':
             for x in range(9):
                 for z in range(9):
@@ -47,10 +44,6 @@ class Chunk:
                             self.blocks.append(Sand((self.pos[0] + x,-y,self.pos[2] + z)))
                         if y ==2:
                             self.blocks.append(Bedrock((self.pos[0] + x,-y,self.pos[2] + z)))
-                            
-
-
-
         if biome == 'snow':
             for x in range(9):
                 for z in range(9):
@@ -61,10 +54,6 @@ class Chunk:
                             self.blocks.append(Dirt((self.pos[0] + x,-y,self.pos[2] + z)))
                         elif y == 2:
                             self.blocks.append(Bedrock((self.pos[0] + x,-y,self.pos[2] + z)))
-
-            
-
-
         elif biome == 'stone':
             for x in range(9):
                 for z in range(9):
@@ -74,16 +63,11 @@ class Chunk:
                         elif y == 2:
                             self.blocks.append(Bedrock((self.pos[0] + x,-y,self.pos[2] + z)))
 
-
-
-
-
-
     def get_pos(self):
         self.block_pos = []
         for block in self.blocks:
             self.block_pos.append(block.pos)
-        #print(self.block_pos)
+        return(self.block_pos)
 
     def draw(self):
         for block in self.blocks:

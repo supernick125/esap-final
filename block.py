@@ -30,5 +30,9 @@ class Block:
         self.batch.add(4,GL_QUADS,self.bottom,("v3f",(x,y,z, X,y,z, X,y,Z, x,y,Z)), tex_coords) #bottom
         self.batch.add(4,GL_QUADS,self.top,("v3f",(x,Y,Z, X,Y,Z, X,Y,z, x,Y,z)), tex_coords) #top
 
+    def exposed(self):
+        #true if not surrounded
+        pass
+
     def draw(self):
         self.batch.draw()
