@@ -1,6 +1,15 @@
 from pyglet.gl import *
 #get coords function
 
+SIDES = [
+    ( 0, 1, 0),
+    ( 0,-1, 0),
+    (-1, 0, 0),
+    ( 1, 0, 0),
+    ( 0, 0, 1),
+    ( 0, 0,-1),
+]
+
 class Block:
 
     def get_tex(self,file):
@@ -30,9 +39,13 @@ class Block:
         self.batch.add(4,GL_QUADS,self.bottom,("v3f",(x,y,z, X,y,z, X,y,Z, x,y,Z)), tex_coords) #bottom
         self.batch.add(4,GL_QUADS,self.top,("v3f",(x,Y,Z, X,Y,Z, X,Y,z, x,Y,z)), tex_coords) #top
 
-    def exposed(self):
+    def exposed(self, world):
         #true if not surrounded
-        pass
+        x,y,z = self.pos
+        for dx,dy,dz in SIDES:
+            if (x + dx, y + dy, z + dz) not in world:
+                return True
+        return False
 
     def draw(self):
         self.batch.draw()

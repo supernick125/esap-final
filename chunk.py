@@ -22,7 +22,7 @@ class Chunk:
 
         if biome == "grassland":
 
-            self.blocks.append(Tree((self.pos[0] + 0,0,self.pos[2])))
+            #self.blocks.append(Tree((self.pos[0] + 0,0,self.pos[2])))
             self.blocks.append(Tnt((self.pos[0] + 0,1,self.pos[2] + 0)))
             self.blocks.append(Pumpkin((self.pos[0] + 5,1,self.pos[2] + 3)))
 
@@ -36,7 +36,7 @@ class Chunk:
                             self.blocks.append(Dirt((self.pos[0] + x,-y,self.pos[2] + z)))
                         elif y == 2:
                             self.blocks.append(Bedrock((self.pos[0] + x,-y,self.pos[2] + z)))
-        if biome == 'desert':
+        elif biome == 'desert':
             for x in range(9):
                 for z in range(9):
                     for y in range(3):
@@ -44,7 +44,7 @@ class Chunk:
                             self.blocks.append(Sand((self.pos[0] + x,-y,self.pos[2] + z)))
                         if y ==2:
                             self.blocks.append(Bedrock((self.pos[0] + x,-y,self.pos[2] + z)))
-        if biome == 'snow':
+        elif biome == 'snow':
             for x in range(9):
                 for z in range(9):
                     for y in range(3):
@@ -63,12 +63,18 @@ class Chunk:
                         elif y == 2:
                             self.blocks.append(Bedrock((self.pos[0] + x,-y,self.pos[2] + z)))
 
-    def get_pos(self):
-        self.block_pos = []
-        for block in self.blocks:
-            self.block_pos.append(block.pos)
-        return(self.block_pos)
+    def __str__(self):
+        return("Chunk Pos: {} Chunk Biome: {}".format(self.pos, self.biome))
 
-    def draw(self):
+    def get_coords(self):
+        self.block_coords = []
         for block in self.blocks:
-            block.draw()
+            self.block_coords.append(block.pos)
+        return(self.block_coords)
+
+    def draw(self,world):
+        for block in self.blocks:
+            if block.exposed(world):
+                block.draw()
+            else:
+                pass

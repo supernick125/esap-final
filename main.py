@@ -20,7 +20,7 @@ class Window(pyglet.window.Window):
         self.reticle = None
 
         self.world = World()
-        self.player = Player((0.5,2,2),(0,0))
+        self.player = Player((0,2,0),(0,0))
 
     def setLock(self,state):
         self.lock = state
@@ -30,7 +30,7 @@ class Window(pyglet.window.Window):
 
     def update(self,dt):
         dt = min(dt, 0.2)
-        self.player.update(dt)
+        self.player.update(dt,self.world.get_world_coords())
 
     def on_mouse_press(self,x,y,BUTTON,MOD):
         if self.mouse_lock and BUTTON == mouse.LEFT: self.player.mouse_press(x,y,BUTTON)
@@ -94,7 +94,7 @@ class Window(pyglet.window.Window):
         self.reticle.draw(GL_LINES)
 
 def main():
-    window = Window(width=1000, height=500, caption='MINECRAFT?', resizable=True)
+    window = Window(width=1000, height=500, caption='shitty mc', resizable=True)
     glEnable(GL_FOG)
     glClearColor(0.5, 0.69, 1.0, 1)
     glEnable(GL_CULL_FACE)
