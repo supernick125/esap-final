@@ -1,7 +1,6 @@
 #Bobby and Nick ESAPCS July 2019
 
 import math
-from collections import deque
 
 from pyglet.gl import *
 from pyglet.window import key, mouse
@@ -10,23 +9,18 @@ from player import *
 from world import *
 
 TICKS_PER_SEC = 60
-#collision updates
 
 class Window(pyglet.window.Window):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.set_minimum_size(300,300)
-        self.cursor = self.get_system_mouse_cursor(self.CURSOR_CROSSHAIR)
-        self.set_mouse_cursor(self.cursor)
-        self.keys = key.KeyStateHandler()
-        self.push_handlers(self.keys)
         pyglet.clock.schedule_interval(self.update, 1.0 / TICKS_PER_SEC)
 
         self.reticle = None
 
         self.world = World()
-        self.player = Player((0.5,2,2),(0,-90))
+        self.player = Player((0.5,2,2),(0,0))
 
     def setLock(self,state):
         self.lock = state
@@ -100,7 +94,7 @@ class Window(pyglet.window.Window):
         self.reticle.draw(GL_LINES)
 
 def main():
-    window = Window(width=1200, height=600, caption='MINECRAFT?', resizable=True)
+    window = Window(width=1000, height=500, caption='MINECRAFT?', resizable=True)
     glEnable(GL_FOG)
     glClearColor(0.5, 0.69, 1.0, 1)
     glEnable(GL_CULL_FACE)
