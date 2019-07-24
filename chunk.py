@@ -23,7 +23,7 @@ class Chunk:
         if biome == "grassland":
 
             #self.blocks.append(Tree((self.pos[0] + 0,0,self.pos[2])))
-            self.blocks.append(Tnt((self.pos[0] + 0,1,self.pos[2] + 0)))
+            #self.blocks.append(Tnt((self.pos[0] + 0,1,self.pos[2] + 0)))
             self.blocks.append(Pumpkin((self.pos[0] + 5,1,self.pos[2] + 3)))
 
             #creates base
@@ -69,7 +69,7 @@ class Chunk:
     def get_coords(self):
         self.block_coords = []
         for block in self.blocks:
-            self.block_coords.append(block.pos)
+            self.block_coords.append(block.get_pos())
         return(self.block_coords)
 
     def draw(self,world):

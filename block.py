@@ -29,8 +29,8 @@ class Block:
 
         tex_coords = ("t2f", (0,0, 1,0, 1,1, 0,1))
 
-        x,y,z = self.pos[0],self.pos[1],self.pos[2]
-        X,Y,Z = x+1,y+1,z+1
+        X,Y,Z = self.pos[0],self.pos[1],self.pos[2]
+        x,y,z = X-1,Y-1,Z-1
 
         self.batch.add(4,GL_QUADS,self.side,("v3f",(X,y,z, x,y,z, x,Y,z, X,Y,z)), tex_coords) #back
         self.batch.add(4,GL_QUADS,self.side,("v3f",(x,y,Z, X,y,Z, X,Y,Z, x,Y,Z)), tex_coords) #front
@@ -46,6 +46,9 @@ class Block:
             if (x + dx, y + dy, z + dz) not in world:
                 return True
         return False
+
+    def get_pos(self):
+        return self.pos
 
     def draw(self):
         self.batch.draw()

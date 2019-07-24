@@ -20,7 +20,7 @@ class Window(pyglet.window.Window):
         self.reticle = None
 
         self.world = World()
-        self.player = Player((0,2,0),(0,0))
+        self.player = Player((0,3,0),(0,0))
 
     def setLock(self,state):
         self.lock = state
@@ -29,8 +29,10 @@ class Window(pyglet.window.Window):
     mouse_lock = property(lambda self: self.lock,setLock)
 
     def update(self,dt):
+        m = 8
         dt = min(dt, 0.2)
-        self.player.update(dt,self.world.get_world_coords())
+        for _ in range(m):
+            self.player.update(dt / m,self.world.get_world_coords())
 
     def on_mouse_press(self,x,y,BUTTON,MOD):
         if self.mouse_lock and BUTTON == mouse.LEFT: self.player.mouse_press(x,y,BUTTON)

@@ -27,7 +27,7 @@ class Player:
         self.rot = rot
         self.lat = [0,0] #lateral movement
         self.dy = 0 #vertical velocity
-        self.flying = True
+        self.flying = False
 
     def fire(self):
         print("pew")
@@ -122,10 +122,12 @@ class Player:
         self.pos = (x,y,z)
 
     def round_dis(self,pos):
-        return(int(round(pos[0])),int(round(pos[1])),int(round(pos[2])))
+        x,y,z = pos
+        x,y,z = (int(round(x)),int(round(y)),int(round(z)))
+        return (x,y,z)
 
     def collide(self, pos, height, world):
-        pad = 0.25
+        pad = 0
         p = list(pos)
         rp = self.round_dis(pos)
         for side in SIDES:
@@ -145,4 +147,6 @@ class Player:
                     if side == (0,-1,0) or side == (0,1,0):
                         self.dy = 0
                     break
+        #print("collide pos: ",p)
+        print(world[0])
         return tuple(p)

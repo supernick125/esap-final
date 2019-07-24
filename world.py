@@ -11,10 +11,14 @@ class World():
 
         SHIFT = 9
 
-        self.chunks.append(Chunk((0,0,9),"desert"))
-        self.chunks.append(Chunk((1*SHIFT,0,1*SHIFT),"grassland"))
-        self.chunks.append(Chunk((2*SHIFT,0,1*SHIFT),"stone"))
-        self.chunks.append(Chunk((1*SHIFT,0,2*SHIFT),"snow"))
+        # self.chunks.append(Chunk((0,0,0),"desert"))n
+        self.chunks.append(Chunk((0,0,0),"grassland"))
+        # self.chunks.append(Chunk((SHIFT,0,SHIFT),"grassland"))
+        # self.chunks.append(Chunk((-1*SHIFT,0,1*SHIFT),"grassland"))
+        # self.chunks.append(Chunk((-1*SHIFT,0,-1*SHIFT),"grassland"))
+        # self.chunks.append(Chunk((1*SHIFT,0,-1*SHIFT),"grassland"))
+        # self.chunks.append(Chunk((2*SHIFT,0,1*SHIFT),"stone"))
+        # self.chunks.append(Chunk((1*SHIFT,0,2*SHIFT),"snow"))
 
         self.gen_world_coords()
 
