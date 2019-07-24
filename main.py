@@ -14,54 +14,6 @@ TICKS_PER_SEC = 60
 
 class Window(pyglet.window.Window):
 
-    def push(self,pos,rot):
-        glPushMatrix()
-        glRotatef(rot[0],0,1,0)
-        glRotatef(-rot[1], math.cos(math.radians(rot[0])), 0, math.sin(math.radians(rot[0])))
-        glTranslatef(-pos[0],-pos[1],-pos[2])
-
-    def Projection(self):
-        glMatrixMode(GL_PROJECTION)
-        glLoadIdentity()
-
-    def Model(self):
-        glMatrixMode(GL_MODELVIEW)
-        glLoadIdentity()
-
-    def set2d(self):
-        glDisable(GL_DEPTH_TEST)
-
-        width = self.get_size()
-        height = self.get_size()
-
-        viewport = self.get_viewport_size()
-        glViewport(0, 0, max(1, viewport[0]), max(1, viewport[1]))
-
-        self.Projection()
-        gluOrtho2D(0,self.width,0,self.height)
-        self.Model()
-
-
-    def set3d(self):
-        glEnable(GL_DEPTH_TEST)
-
-        width = self.get_size()
-        height = self.get_size()
-
-        viewport = self.get_viewport_size()
-        glViewport(0, 0, max(1, viewport[0]), max(1, viewport[1]))
-
-        self.Projection();
-        gluPerspective(65.0, self.width / self.height, 0.1, 60.0);
-        self.Model()
-
-    #FOR LOCKING MOUSE
-    def setLock(self,state):
-        self.lock = state
-        self.set_exclusive_mouse(state)
-    lock = False
-    mouse_lock = property(lambda self: self.lock,setLock)
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.set_minimum_size(300,300)
@@ -71,8 +23,20 @@ class Window(pyglet.window.Window):
         self.push_handlers(self.keys)
         pyglet.clock.schedule_interval(self.update, 1.0 / TICKS_PER_SEC)
 
+        self.reticle = None
+
         self.world = World()
         self.player = Player((0.5,2,2),(0,-90))
+
+    def setLock(self,state):
+        self.lock = state
+        self.set_exclusive_mouse(state)
+    lock = False
+    mouse_lock = property(lambda self: self.lock,setLock)
+
+    def update(self,dt):
+        dt = min(dt, 0.2)
+        self.player.update(dt)
 
     def on_mouse_press(self,x,y,BUTTON,MOD):
         if self.mouse_lock and BUTTON == mouse.LEFT: self.player.mouse_press(x,y,BUTTON)
@@ -88,18 +52,52 @@ class Window(pyglet.window.Window):
     def on_key_release(self,KEY,MOD):
         self.player.key_release(KEY,MOD)
 
-    def update(self,dt):
-        dt = min(dt, 0.2)
-        self.player.update(dt,self.keys)
+    def on_resize(self,width,height):
+        if self.reticle:
+            self.reticle.delete()
+        x,y = self.width // 2, self.height // 2
+        n = 10
+        self.reticle = pyglet.graphics.vertex_list(4,("v2i", (x-n,y,x+n,y,x,y-n,x,y+n)))
+
+    def set2d(self):
+        glDisable(GL_DEPTH_TEST)
+        width = self.get_size()
+        height = self.get_size()
+        viewport = self.get_viewport_size()
+        glViewport(0, 0, max(1, viewport[0]), max(1, viewport[1]))
+        glMatrixMode(GL_PROJECTION)
+        glLoadIdentity()
+        gluOrtho2D(0,self.width,0,self.height)
+        glMatrixMode(GL_MODELVIEW)
+        glLoadIdentity()
+
+    def set3d(self,pos,rot):
+        glEnable(GL_DEPTH_TEST)
+        width = self.get_size()
+        height = self.get_size()
+        viewport = self.get_viewport_size()
+        glViewport(0, 0, max(1, viewport[0]), max(1, viewport[1]))
+        glMatrixMode(GL_PROJECTION)
+        glLoadIdentity()
+        gluPerspective(65.0, self.width / self.height, 0.1, 60.0);
+        glMatrixMode(GL_MODELVIEW)
+        glLoadIdentity()
+
+        glRotatef(rot[0],0,1,0)
+        glRotatef(-rot[1], math.cos(math.radians(rot[0])), 0, math.sin(math.radians(rot[0])))
+        glTranslatef(-pos[0],-pos[1],-pos[2])
 
     def on_draw(self):
         self.clear()
-        self.set2d()
-        self.set3d()
-
-        self.push(self.player.pos,self.player.rot)
+        self.set3d(self.player.pos,self.player.rot)
+        glColor3d(1,1,1)
         self.world.draw()
-        glPopMatrix()
+        self.set2d()
+        self.draw_reticle()
+
+    def draw_reticle(self):
+        glColor3d(0,0,0)
+        self.reticle.draw(GL_LINES)
 
 def main():
     window = Window(width=1200, height=600, caption='MINECRAFT?', resizable=True)
@@ -116,7 +114,6 @@ def main():
     glFogi(GL_FOG_MODE, GL_LINEAR)
     glFogf(GL_FOG_START, 15.0)
     glFogf(GL_FOG_END, 55.0)
-
 
     pyglet.app.run()
 

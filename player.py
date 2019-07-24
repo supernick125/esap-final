@@ -82,7 +82,7 @@ class Player:
             dz = 0.0
         return (dx,dy,dz)
 
-    def update(self,dt,keys):
+    def update(self,dt):
         speed = WALKING_SPEED
         d = dt*speed
         dx,dy,dz = self.get_motion_vector()
@@ -96,9 +96,6 @@ class Player:
         x,y,z = self.pos
         x,y,z = self.collide((x + dx,y + dy,z + dz), PLAYER_HEIGHT)
         self.pos = (x,y,z)
-
-        rotY = -self.rot[1]/180*math.pi
-        dx,dz = d*math.sin(rotY),d*math.cos(rotY)
 
     def collide(self, pos, height):
         p = list(pos)
