@@ -1,9 +1,13 @@
 #Bobby and Nick ESAPCS July 2019
-
+import pygame
 import math
+import wave
+import sys
+import pyglet
 
 from pyglet.gl import *
 from pyglet.window import key, mouse
+import pyglet.media 
 
 from player import *
 from world import *
@@ -18,9 +22,10 @@ class Window(pyglet.window.Window):
         pyglet.clock.schedule_interval(self.update, 1.0 / TICKS_PER_SEC)
 
         self.reticle = None
-
         self.world = World()
         self.player = Player((2,10,2),(45,0))
+
+         
 
     def setLock(self,state):
         self.lock = state
@@ -35,14 +40,18 @@ class Window(pyglet.window.Window):
             self.player.update(dt / m,self.world.get_world_coords())
 
     def on_mouse_press(self,x,y,BUTTON,MOD):
-        if self.mouse_lock and BUTTON == mouse.LEFT: self.player.mouse_press(x,y,BUTTON)
+        if self.mouse_lock and BUTTON == mouse.LEFT: 
+            self.player.mouse_press(x,y,BUTTON)
 
     def on_mouse_motion(self,x,y,dx,dy):
-        if self.mouse_lock: self.player.mouse_motion(dx,dy)
+        if self.mouse_lock: 
+            self.player.mouse_motion(dx,dy)
 
     def on_key_press(self,KEY,MOD):
-        if KEY == key.ESCAPE: self.close()
-        elif KEY == key.E: self.mouse_lock = not self.mouse_lock
+        if KEY == key.ESCAPE: 
+            self.close()
+        elif KEY == key.E: 
+            self.mouse_lock = not self.mouse_lock
         self.player.key_press(KEY,MOD)
 
     def on_key_release(self,KEY,MOD):
@@ -95,11 +104,44 @@ class Window(pyglet.window.Window):
         glColor3d(0,0,0)
         self.reticle.draw(GL_LINES)
 
+def play_background_music():
+    # CHUNK_SIZE = 1024
+
+    # wf = wave.open('backgroundmusic.wav', 'rb')
+    # p = pyaudio.PyAudio()
+
+    # # open stream based on the wave object which has been input.
+    # stream = p.open(format =
+    #                 p.get_format_from_width(wf.getsampwidth()),
+    #                 channels = wf.getnchannels(),
+    #                 rate = wf.getframerate(),
+    #                 output = True)
+
+    # data = wf.readframes(CHUNK_SIZE)
+    # b = True
+    # while data != '':
+    #     stream.write(data)
+    #     data = wf.readframes(CHUNK_SIZE)
+    #     if b:
+    #         pyglet.app.run()
+    #         b = False
+
+
+    # stream.close()  
+    # p.terminate()
+
+    pygame.mixer.init()
+    pygame.mixer.music.load('backgroundmusic.wav')
+    pygame.mixer.music.play(999)
+   
+
 def main():
+    
     window = Window(width=1000, height=500, caption='shitty mc', resizable=True)
     glEnable(GL_FOG)
     glClearColor(0.5, 0.69, 1.0, 1)
     glEnable(GL_CULL_FACE)
+
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
@@ -111,7 +153,10 @@ def main():
     glFogf(GL_FOG_START, 15.0)
     glFogf(GL_FOG_END, 55.0)
 
+
+    play_background_music()
     pyglet.app.run()
+    
 
 if __name__ == "__main__":
     main()

@@ -29,11 +29,14 @@ class Player:
         self.dy = 0 #vertical velocity
         self.flying = False
 
-    def fire(self):
-        print("pew")
+    def check_hit(self, world, position, vector, max_distance =8):
+        pass
+        
 
     def mouse_press(self,x,y,BUTTON, world):
-        pass
+        self.vector = self.get_sight_vector()
+        block, previous = self.hit_test(self.position, self.vector)
+
 
     def mouse_motion(self,dx,dy):
         m = 0.15
