@@ -147,7 +147,5 @@ class Player:
                     p[i] -= (d - pad) * side[i]
                     if side == (0,-1,0) or side == (0,1,0):
                         self.dy = 0
-                break
-
-
+                    break
         return tuple(p)

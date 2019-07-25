@@ -20,7 +20,7 @@ class Window(pyglet.window.Window):
         self.reticle = None
 
         self.world = World()
-        self.player = Player((0,3,0),(0,0))
+        self.player = Player((2,10,2),(45,0))
 
     def setLock(self,state):
         self.lock = state

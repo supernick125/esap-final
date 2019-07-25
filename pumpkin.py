@@ -7,5 +7,4 @@ class Pumpkin(Block):
 		self.side_tex = "textures/carved_pumpkin.png"
 		self.bottom_tex = "textures/pumpkin_side.png"
 
-		print(pos)
 		super().__init__(pos,self.top_tex,self.side_tex,self.bottom_tex)
