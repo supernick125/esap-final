@@ -7,7 +7,7 @@ import pyglet
 
 from pyglet.gl import *
 from pyglet.window import key, mouse
-import pyglet.media 
+import pyglet.media
 
 from player import *
 from world import *
@@ -25,7 +25,7 @@ class Window(pyglet.window.Window):
         self.world = World()
         self.player = Player((2,10,2),(45,0))
 
-         
+
 
     def setLock(self,state):
         self.lock = state
@@ -40,17 +40,23 @@ class Window(pyglet.window.Window):
             self.player.update(dt / m,self.world.get_world_coords())
 
     def on_mouse_press(self,x,y,BUTTON,MOD):
-        if self.mouse_lock and BUTTON == mouse.LEFT: 
-            self.player.mouse_press(x,y,BUTTON)
+        if self.mouse_lock:
+            click = self.player.mouse_press(x,y,BUTTON,MOD,self.world.get_world_coords())
+            print(click)
+            if click[0] == "build":
+                print("added")
+                self.world.add_block(click[1])
+            elif click[0] == "break":
+                self.world.destroy_block(click[1])
 
     def on_mouse_motion(self,x,y,dx,dy):
-        if self.mouse_lock: 
+        if self.mouse_lock:
             self.player.mouse_motion(dx,dy)
 
     def on_key_press(self,KEY,MOD):
-        if KEY == key.ESCAPE: 
+        if KEY == key.ESCAPE:
             self.close()
-        elif KEY == key.E: 
+        elif KEY == key.E:
             self.mouse_lock = not self.mouse_lock
         self.player.key_press(KEY,MOD)
 
@@ -127,16 +133,16 @@ def play_background_music():
     #         b = False
 
 
-    # stream.close()  
+    # stream.close()
     # p.terminate()
 
     pygame.mixer.init()
     pygame.mixer.music.load('backgroundmusic.wav')
     pygame.mixer.music.play(999)
-   
+
 
 def main():
-    
+
     window = Window(width=1000, height=500, caption='shitty mc', resizable=True)
     glEnable(GL_FOG)
     glClearColor(0.5, 0.69, 1.0, 1)
@@ -156,7 +162,7 @@ def main():
 
     play_background_music()
     pyglet.app.run()
-    
+
 
 if __name__ == "__main__":
     main()

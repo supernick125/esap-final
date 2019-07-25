@@ -29,14 +29,27 @@ class Player:
         self.dy = 0 #vertical velocity
         self.flying = False
 
-    def check_hit(self, world, position, vector, max_distance =8):
-        pass
-        
+    def check_hit(self, world, max_dist=8):
+        m = 8
+        x,y,z = self.pos
+        dx,dy,dz = self.get_sight_vector()
+        previous = None
+        for _ in range(max_dist * m):
+            key = self.round_dis((x,y,z))
+            if key != previous and key in world:
+                return key, previous
+            previous = key
+            x,y,z = x + dx / m, y + dy / m, z + dz / m
+        return None, None
 
-    def mouse_press(self,x,y,BUTTON, world):
-        self.vector = self.get_sight_vector()
-        block, previous = self.hit_test(self.position, self.vector)
-
+    def mouse_press(self,x,y,BUTTON,MOD,world):
+        block, previous = self.check_hit(world)
+        if BUTTON == mouse.RIGHT or \
+            (button == mouse.LEFT) and (MOD & key.MOD_CTRL):
+            if previous:
+                return ("build",previous)
+        elif BUTTON == mouse.LEFT and block:
+            return ("break",block)
 
     def mouse_motion(self,dx,dy):
         m = 0.15

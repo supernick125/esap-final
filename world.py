@@ -10,10 +10,10 @@ class World():
         #Making world out of chunks
         SHIFT = 9
 
-        for x in range(3):
-            for z in range(3):
+        for x in range(2):
+            for z in range(2):
                 for y in range(1):
-                    self.chunks.append(Chunk1((x*SHIFT,y*SHIFT,z*SHIFT), "grassland"))
+                    self.chunks.append(Chunk((x*SHIFT,y*SHIFT,z*SHIFT), "grassland"))
 
         #Generating world list
         self.gen_world_coords()
@@ -30,6 +30,18 @@ class World():
 
     def get_world_coords(self):
         return self.world_coords
+
+    def add_block(self,pos): #ADD TYPE VARIABLE
+        if pos in self.world_coords:
+            self.destroy_block(pos)
+        added_block = Dirt(pos)
+        self.chunks[0].add_block(added_block)
+        self.world_coords.append(added_block.get_pos())
+        added_block.add_to_batch(added_block.gen_exposed_key(self.world_coords))
+
+    def destroy_block(self,pos):
+        self.world_coords.remove(pos)
+        #CHECK NEIGHBORS EXPOSED
 
     def draw(self):
         for chunk in self.chunks:

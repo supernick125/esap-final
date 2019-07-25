@@ -76,6 +76,12 @@ class Chunk:
         for block in self.blocks:
             block.add_to_batch(block.gen_exposed_key(world))
 
+    def add_block(self,added_block):
+        self.blocks.append(added_block)
+
+    def destroy_block(self,destroyed_block):
+        pass
+
     def draw(self,world):
         for block in self.blocks:
             block.draw()
