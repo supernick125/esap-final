@@ -23,7 +23,7 @@ class Window(pyglet.window.Window):
 
         self.reticle = None
         self.world = World()
-        self.player = Player((2,10,2),(45,0))
+        self.player = Player((9,5,9),(0,0))
 
          
 
@@ -150,8 +150,8 @@ def main():
     glFogfv(GL_FOG_COLOR, (GLfloat * 4)(0.5, 0.69, 1.0, 1))
     glHint(GL_FOG_HINT, GL_DONT_CARE)
     glFogi(GL_FOG_MODE, GL_LINEAR)
-    glFogf(GL_FOG_START, 15.0)
-    glFogf(GL_FOG_END, 55.0)
+    glFogf(GL_FOG_START, 5.0)
+    glFogf(GL_FOG_END, 20.0)
 
 
     play_background_music()
