@@ -39,16 +39,20 @@ class Block:
         self.batch.add(4,GL_QUADS,self.bottom,("v3f",(x,y,z, X,y,z, X,y,Z, x,y,Z)), tex_coords) #bottom
         self.batch.add(4,GL_QUADS,self.top,("v3f",(x,Y,Z, X,Y,Z, X,Y,z, x,Y,z)), tex_coords) #top
 
-    def exposed(self, world):
+    def set_exposed(self, world): #DONT CALL EVERY TIME
         #true if not surrounded
         x,y,z = self.pos
         for dx,dy,dz in SIDES:
             if (x + dx, y + dy, z + dz) not in world:
-                return True
-        return False
+                self.is_exposed = True
+                return
+        self.is_exposed = False
 
     def get_pos(self):
         return self.pos
+
+    def get_exposed(self):
+        return self.is_exposed
 
     def draw(self):
         self.batch.draw()

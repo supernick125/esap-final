@@ -119,7 +119,10 @@ class Player:
 
         x,y,z = self.pos
 
-        X,Y,Z = self.collide((x + dx,y + dy,z + dz), PLAYER_HEIGHT,world)
+        if not self.flying:
+            X,Y,Z = self.collide((x + dx,y + dy,z + dz), PLAYER_HEIGHT,world)
+        else:
+            X,Y,Z = x + dx,y + dy,z + dz
         self.pos = (X,Y,Z)
 
     def round_dis(self,pos):

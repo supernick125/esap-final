@@ -72,9 +72,11 @@ class Chunk:
             self.block_coords.append(block.get_pos())
         return(self.block_coords)
 
+    def gen_exposed(self,world):
+        for block in self.blocks:
+            block.set_exposed(world)
+
     def draw(self,world):
         for block in self.blocks:
-            if block.exposed(world):
+            if block.get_exposed():
                 block.draw()
-            else:
-                pass
