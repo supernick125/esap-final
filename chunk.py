@@ -20,6 +20,9 @@ class Chunk:
         self.biome = biome
         self.blocks = []
 
+        if biome == "horny":
+            self.blocks.append(Grass((self.pos[0],self.pos[1],self.pos[2])))
+
         if biome == "grassland":
 
             #self.blocks.append(Tree((self.pos[0] + 0,0,self.pos[2])))
@@ -63,20 +66,19 @@ class Chunk:
                         elif y == 2:
                             self.blocks.append(Bedrock((self.pos[0] + x,-y,self.pos[2] + z)))
 
-    def __str__(self):
-        return("Chunk Pos: {} Chunk Biome: {}".format(self.pos, self.biome))
-
     def get_coords(self):
         self.block_coords = []
         for block in self.blocks:
             self.block_coords.append(block.get_pos())
         return(self.block_coords)
 
-    def gen_exposed(self,world):
+    def gen_exposed_batches(self,world):
         for block in self.blocks:
-            block.set_exposed(world)
+            block.add_to_batch(block.gen_exposed_key(world))
 
     def draw(self,world):
         for block in self.blocks:
-            if block.get_exposed():
-                block.draw()
+            block.draw()
+
+    def __str__(self):
+        return("Chunk Pos: {} Chunk Biome: {}".format(self.pos, self.biome))
