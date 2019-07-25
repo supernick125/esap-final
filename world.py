@@ -10,17 +10,13 @@ class World():
         #Making world out of chunks
         SHIFT = 9
 
-<<<<<<< HEAD
-        for x in range(2):
-            for z in range(2):
-                for y in range(1):
-                    self.chunks.append(Chunk((x*SHIFT,y*SHIFT,z*SHIFT), "grassland"))
-=======
+
+
         self.chunks.append(Chunk((0,0,0), "grassland"))
         self.chunks.append(Chunk((1*SHIFT,0,0), "desert"))
         self.chunks.append(Chunk((0,0,1*SHIFT), "snow"))
         self.chunks.append(Chunk((1*SHIFT,0,1*SHIFT), "stone"))
->>>>>>> 34e6ee069a1a1dc7d2d457895c3ea7568ea16d26
+
 
         #Generating world list
         self.gen_world_coords()
