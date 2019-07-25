@@ -32,8 +32,8 @@ class Player:
     def fire(self):
         print("pew")
 
-    def mouse_press(self,x,y,BUTTON):
-        return self.fire()
+    def mouse_press(self,x,y,BUTTON, world):
+        pass
 
     def mouse_motion(self,dx,dy):
         m = 0.15
@@ -96,8 +96,8 @@ class Player:
                 dz = math.sin(x_angle)
             #flying?
             else:
-                dx = math.cos(x_angle)
                 dy = 0.0
+                dx = math.cos(x_angle)
                 dz = math.sin(x_angle)
         else:
             dx = 0.0
@@ -118,8 +118,9 @@ class Player:
             dy += self.dy * dt
 
         x,y,z = self.pos
-        x,y,z = self.collide((x + dx,y + dy,z + dz), PLAYER_HEIGHT,world)
-        self.pos = (x,y,z)
+    
+        X,Y,Z = self.collide((x + dx,y + dy,z + dz), PLAYER_HEIGHT,world)
+        self.pos = (X,Y,Z)
 
     def round_dis(self,pos):
         x,y,z = pos
@@ -127,26 +128,27 @@ class Player:
         return (x,y,z)
 
     def collide(self, pos, height, world):
-        pad = 0
+        pad = 0.25
         p = list(pos)
         rp = self.round_dis(pos)
         for side in SIDES:
             for i in range(3):
                 if not side[i]:
                     continue
-                d = (p[i] - rp[i]) * side[i]
+                d = ((p[i] - rp[i])) * side[i] 
                 if d < pad:
                     continue
                 for dy in range(height):
                     op = list(rp)
-                    op[1] -= dy
-                    op[i] += side[i]
+                    op[1] -= dy 
+
+                    op[i] += side[i] 
                     if tuple(op) not in world:
                         continue
-                    p[i] -= (d - pad) * side[i]
+                    p[i] -= ((d - pad) * side[i]) + .25
                     if side == (0,-1,0) or side == (0,1,0):
                         self.dy = 0
                     break
-        #print("collide pos: ",p)
-        print(world[0])
+
+
         return tuple(p)
