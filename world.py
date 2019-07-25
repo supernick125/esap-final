@@ -1,4 +1,4 @@
-from chunk1 import *
+from chunk import *
 from pyglet.gl import *
 
 class World():
