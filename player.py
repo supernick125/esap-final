@@ -118,7 +118,7 @@ class Player:
             dy += self.dy * dt
 
         x,y,z = self.pos
-    
+
         X,Y,Z = self.collide((x + dx,y + dy,z + dz), PLAYER_HEIGHT,world)
         self.pos = (X,Y,Z)
 
@@ -135,20 +135,19 @@ class Player:
             for i in range(3):
                 if not side[i]:
                     continue
-                d = ((p[i] - rp[i])) * side[i] 
+                d = (p[i] - rp[i]) * side[i]
                 if d < pad:
                     continue
                 for dy in range(height):
                     op = list(rp)
-                    op[1] -= dy 
-
-                    op[i] += side[i] 
+                    op[1] -= dy
+                    op[i] += side[i]
                     if tuple(op) not in world:
                         continue
                     p[i] -= (d - pad) * side[i]
                     if side == (0,-1,0) or side == (0,1,0):
                         self.dy = 0
-                    break
+                break
 
 
         return tuple(p)

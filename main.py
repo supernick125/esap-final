@@ -30,7 +30,7 @@ class Window(pyglet.window.Window):
 
     def update(self,dt):
         m = 8
-        dt = min(dt, .20)
+        dt = min(dt, .2)
         for _ in range(m):
             self.player.update(dt / m,self.world.get_world_coords())
 
