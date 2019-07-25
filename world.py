@@ -13,7 +13,7 @@ class World():
         for x in range(3):
             for z in range(3):
                 for y in range(1):
-                    self.chunks.append(Chunk1((x*SHIFT,y*SHIFT,z*SHIFT), "grassland"))
+                    self.chunks.append(Chunk((x*SHIFT,y*SHIFT,z*SHIFT), "grassland"))
 
         #Generating world list
         self.gen_world_coords()
