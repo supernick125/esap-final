@@ -42,9 +42,7 @@ class Window(pyglet.window.Window):
     def on_mouse_press(self,x,y,BUTTON,MOD):
         if self.mouse_lock:
             click = self.player.mouse_press(x,y,BUTTON,MOD,self.world.get_world_coords())
-            print(click)
             if click[0] == "build":
-                print("added")
                 self.world.add_block(click[1])
             elif click[0] == "break":
                 self.world.destroy_block(click[1])

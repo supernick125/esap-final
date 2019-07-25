@@ -10,13 +10,10 @@ class World():
         #Making world out of chunks
         SHIFT = 9
 
-
-
         self.chunks.append(Chunk((0,0,0), "grassland"))
         self.chunks.append(Chunk((1*SHIFT,0,0), "desert"))
         self.chunks.append(Chunk((0,0,1*SHIFT), "snow"))
         self.chunks.append(Chunk((1*SHIFT,0,1*SHIFT), "stone"))
-
 
         #Generating world list
         self.gen_world_coords()
@@ -37,7 +34,11 @@ class World():
     def add_block(self,pos): #ADD TYPE VARIABLE
         if pos in self.world_coords:
             self.destroy_block(pos)
-        added_block = Dirt(pos)
+        #Conditionals to change block type
+
+        added_block = Stone(pos)
+
+
         self.chunks[0].add_block(added_block)
         self.world_coords.append(added_block.get_pos())
         added_block.add_to_batch(added_block.gen_exposed_key(self.world_coords))
