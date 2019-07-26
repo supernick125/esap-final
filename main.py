@@ -25,8 +25,6 @@ class Window(pyglet.window.Window):
         self.world = World()
         self.player = Player((9,5,9),(0,0))
 
-
-
     def setLock(self,state):
         self.lock = state
         self.set_exclusive_mouse(state)
@@ -42,7 +40,9 @@ class Window(pyglet.window.Window):
     def on_mouse_press(self,x,y,BUTTON,MOD):
         if self.mouse_lock:
             click = self.player.mouse_press(x,y,BUTTON,MOD,self.world.get_world_coords())
-            if click[0] == "build":
+            if click == None:
+                pass
+            elif click[0] == "build":
                 self.world.add_block(click[1])
             elif click[0] == "break":
                 self.world.destroy_block(click[1])
@@ -138,14 +138,11 @@ def play_background_music():
     pygame.mixer.music.load('backgroundmusic.wav')
     pygame.mixer.music.play(999)
 
-
 def main():
-
     window = Window(width=1000, height=500, caption='shitty mc', resizable=True)
     glEnable(GL_FOG)
     glClearColor(0.5, 0.69, 1.0, 1)
     glEnable(GL_CULL_FACE)
-
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
@@ -157,10 +154,8 @@ def main():
     glFogf(GL_FOG_START, 5.0)
     glFogf(GL_FOG_END, 20.0)
 
-
     play_background_music()
     pyglet.app.run()
-
 
 if __name__ == "__main__":
     main()

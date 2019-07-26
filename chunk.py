@@ -14,6 +14,15 @@ from ice import *
 
 import random
 
+SIDES = [
+    ( 0, 1, 0),
+    ( 0,-1, 0),
+    (-1, 0, 0),
+    ( 1, 0, 0),
+    ( 0, 0, 1),
+    ( 0, 0,-1),
+]
+
 class Chunk:
 
     #ADD TO BLOCK LIST!!!
@@ -97,13 +106,10 @@ class Chunk:
                         elif y == 2:
                             self.blocks.append(Bedrock((self.pos[0] + x,-y,self.pos[2] + z)))
         elif biome == 'desert':
-
             for y in range(2):
                 self.blocks.append(Cactus((13,y+1,6)))
-
             for y in range(3):
                 self.blocks.append(Cactus((11,y+1,2)))
-
             for y in range(4):
                 self.blocks.append(Cactus((16,y+1,2)))
 
@@ -155,7 +161,7 @@ class Chunk:
                         elif y == 2:
                             self.blocks.append(Bedrock((self.pos[0] + x,-y,self.pos[2] + z)))
 
-    def get_coords(self):
+    def gen_coords(self):
         self.block_coords = []
         for block in self.blocks:
             self.block_coords.append(block.get_pos())
@@ -165,11 +171,23 @@ class Chunk:
         for block in self.blocks:
             block.add_to_batch(block.gen_exposed_key(world))
 
+    def update_neighbors(self,key,world):
+        for block in self.blocks:
+            if block.get_pos() == key:
+                block.add_to_batch(block.gen_exposed_key(world))
+
     def add_block(self,added_block):
         self.blocks.append(added_block)
+        self.block_coords.append(added_block.get_pos())
 
     def destroy_block(self,destroyed_block):
-        pass
+        for i in range(len(self.blocks)):
+            if self.blocks[i].get_pos() == destroyed_block:
+                self.blocks.remove(self.blocks[i])
+                break
+
+    def get_coords(self):
+        return self.block_coords
 
     def draw(self,world):
         for block in self.blocks:

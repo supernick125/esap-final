@@ -22,7 +22,7 @@ class World():
 
     def gen_world_coords(self):
         for chunk in self.chunks:
-            self.world_coords.extend(chunk.get_coords())
+            self.world_coords.extend(chunk.gen_coords())
 
     def gen_exposed_batches(self):
         for chunk in self.chunks:
@@ -30,6 +30,16 @@ class World():
 
     def get_world_coords(self):
         return self.world_coords
+
+    def update_neighbors(self,pos):
+        x,y,z = pos
+        for dx,dy,dz in SIDES:
+            key = (x+dx,y+dy,z+dz)
+            if key not in self.world_coords:
+                continue
+            for chunk in self.chunks:
+                if key in chunk.get_coords():
+                    chunk.update_neighbors(key,self.world_coords)
 
     def add_block(self,pos): #ADD TYPE VARIABLE
         if pos in self.world_coords:
@@ -39,13 +49,18 @@ class World():
         added_block = Stone(pos)
 
 
-        self.chunks[0].add_block(added_block)
+        self.chunks[0].add_block(added_block) #CHUNK CHEESE HERE
         self.world_coords.append(added_block.get_pos())
         added_block.add_to_batch(added_block.gen_exposed_key(self.world_coords))
+        self.update_neighbors(pos)
 
     def destroy_block(self,pos):
         self.world_coords.remove(pos)
-        #CHECK NEIGHBORS EXPOSED
+        for chunk in self.chunks:
+            if pos in chunk.get_coords():
+                #update_chunk = self.chunks.index(chunk)
+                chunk.destroy_block(pos)
+        self.update_neighbors(pos)
 
     def draw(self):
         for chunk in self.chunks:

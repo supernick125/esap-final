@@ -25,7 +25,6 @@ class Block:
         self.bottom = self.get_tex(self.bottom_tex)
 
         self.pos = pos
-        self.batch = pyglet.graphics.Batch()
 
     def gen_exposed_key(self, world): #DONT CALL EVERY TIME
         #true if not surrounded
@@ -39,6 +38,8 @@ class Block:
     def add_to_batch(self, key):
         #Key is 6 long list of 1 and 0 (0,0,0,0,0,0)
         #Top Bottom Left Right Front Back
+
+        self.batch = pyglet.graphics.Batch()
 
         tex_coords = ("t2f", (0,0, 1,0, 1,1, 0,1))
 

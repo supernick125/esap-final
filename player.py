@@ -45,7 +45,7 @@ class Player:
     def mouse_press(self,x,y,BUTTON,MOD,world):
         block, previous = self.check_hit(world)
         if BUTTON == mouse.RIGHT or \
-            (button == mouse.LEFT) and (MOD & key.MOD_CTRL):
+            (BUTTON == mouse.LEFT) and (MOD & key.MOD_CTRL):
             if previous:
                 return ("build",previous)
         elif BUTTON == mouse.LEFT and block:
