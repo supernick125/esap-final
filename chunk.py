@@ -33,8 +33,8 @@ class Chunk:
 
         if biome == "grassland":
             #tree1
-            for y in range(5):
-                self.blocks.append(Spruce((1+pos[0],y,1 + pos[2])))
+            for y in range(4):
+                self.blocks.append(Spruce((1+pos[0],y+1,1 + pos[2])))
             for i in range(2):
                 self.blocks.append(Leaves((0+pos[0], 3+i , 2+ pos[2])))
                 self.blocks.append(Leaves((0+pos[0], 3+i, 1+ pos[2])))
@@ -47,8 +47,8 @@ class Chunk:
             self.blocks.append(Leaves((1 + pos[0], 5, 1+pos[2])))
 
             #tree2
-            for y in range(5):
-                self.blocks.append(Spruce((5,y,5)))
+            for y in range(4):
+                self.blocks.append(Spruce((5,y+1,5)))
             for i in range(2):
                 self.blocks.append(Leaves((4, 3+i , 6)))
                 self.blocks.append(Leaves((4, 3+i, 5)))
@@ -61,8 +61,8 @@ class Chunk:
             self.blocks.append(Leaves((5, 5, 5)))
 
             #tree3
-            for y in range(5):
-                self.blocks.append(Spruce((8,y,1)))
+            for y in range(4):
+                self.blocks.append(Spruce((8,y+1,1)))
             for i in range(2):
                 self.blocks.append(Leaves((7, 3+i , 2)))
                 self.blocks.append(Leaves((7, 3+i, 1)))
@@ -75,8 +75,8 @@ class Chunk:
             self.blocks.append(Leaves((8, 5, 1)))
 
             #tree4
-            for y in range(5):
-                self.blocks.append(Spruce((1,y,8)))
+            for y in range(4):
+                self.blocks.append(Spruce((1,y+1,8)))
             for i in range(2):
                 self.blocks.append(Leaves((0, 3+i , 9)))
                 self.blocks.append(Leaves((0, 3+i, 8)))

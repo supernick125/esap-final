@@ -3,7 +3,7 @@ from pyglet.window import mouse
 import math
 
 WALKING_SPEED = 5
-FLYING_SPEED = 15
+FLYING_SPEED = 10
 
 GRAV = 20.0
 MAX_JUMP = 1.0
@@ -135,10 +135,11 @@ class Player:
 
         x,y,z = self.pos
 
-        if not self.flying:
-            X,Y,Z = self.collide((x + dx,y + dy,z + dz), PLAYER_HEIGHT,world)
-        else:
-            X,Y,Z = x + dx,y + dy,z + dz
+        # if not self.flying:
+        #     X,Y,Z = self.collide((x + dx,y + dy,z + dz), PLAYER_HEIGHT,world)
+        # else:
+        #     X,Y,Z = x + dx,y + dy,z + dz
+        X,Y,Z = self.collide((x + dx,y + dy,z + dz), PLAYER_HEIGHT,world)
         self.pos = (X,Y,Z)
 
     def round_dis(self,pos):

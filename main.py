@@ -139,7 +139,7 @@ def play_background_music():
     pygame.mixer.music.play(999)
 
 def main():
-    window = Window(width=1000, height=500, caption='shitty mc', resizable=True)
+    window = Window(width=1250, height=750, caption='shitty mc', resizable=True)
     glEnable(GL_FOG)
     glClearColor(0.5, 0.69, 1.0, 1)
     glEnable(GL_CULL_FACE)

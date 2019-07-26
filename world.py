@@ -55,11 +55,11 @@ class World():
         self.update_neighbors(pos)
 
     def destroy_block(self,pos):
-        self.world_coords.remove(pos)
         for chunk in self.chunks:
             if pos in chunk.get_coords():
                 #update_chunk = self.chunks.index(chunk)
                 chunk.destroy_block(pos)
+        self.world_coords.remove(pos)
         self.update_neighbors(pos)
 
     def draw(self):
