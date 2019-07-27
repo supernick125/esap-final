@@ -1,16 +1,5 @@
 
-from grass import *
-from dirt import *
-from stone import *
-from bedrock import *
-from sand import *
-from snow import *
-from tnt import *
-from pumpkin import *
-from spruce import *
-from leaves import *
-from cactus import *
-from ice import *
+from block import *
 
 import random
 

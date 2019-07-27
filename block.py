@@ -1,5 +1,4 @@
 from pyglet.gl import *
-#get coords function
 
 SIDES = [
     ( 0, 1, 0),
@@ -24,6 +23,7 @@ class Block:
         self.side = self.get_tex(self.side_tex)
         self.bottom = self.get_tex(self.bottom_tex)
 
+        #self.type = type
         self.pos = pos
 
     def gen_exposed_key(self, world): #DONT CALL EVERY TIME
@@ -65,3 +65,99 @@ class Block:
 
     def draw(self):
         self.batch.draw()
+
+class Bedrock(Block):
+    def __init__(self,pos):
+        self.top_tex = "textures/bedrock.png"
+        self.side_tex = "textures/bedrock.png"
+        self.bottom_tex = "textures/bedrock.png"
+
+        super().__init__(pos,self.top_tex,self.side_tex,self.bottom_tex)
+
+class Cactus(Block):
+	def __init__(self,pos):
+		self.top_tex = "textures/cactus_top.png"
+		self.side_tex = "textures/cactus_side.png"
+		self.bottom_tex = "textures/cactus_bottom.png"
+
+		super().__init__(pos,self.top_tex,self.side_tex,self.bottom_tex)
+
+class Dirt(Block):
+    def __init__(self,pos):
+        self.top_tex = "textures/dirt.png"
+        self.side_tex = "textures/dirt.png"
+        self.bottom_tex = "textures/dirt.png"
+
+        super().__init__(pos,self.top_tex,self.side_tex,self.bottom_tex)
+
+class Grass(Block):
+    def __init__(self,pos):
+        self.top_tex = "textures/grass_top.png"
+        self.side_tex = "textures/grass_side.png"
+        self.bottom_tex = "textures/dirt.png"
+
+        super().__init__(pos,self.top_tex,self.side_tex,self.bottom_tex)
+
+class Ice(Block):
+	def __init__(self,pos):
+		self.top_tex = "textures/frosted_ice_0.png"
+		self.side_tex = "textures/ice.png"
+		self.bottom_tex = "textures/ice.png"
+
+		super().__init__(pos,self.top_tex,self.side_tex,self.bottom_tex)
+
+class Leaves(Block):
+	def __init__(self,pos):
+		self.top_tex = "textures/leaves_oak.png"
+		self.side_tex = "textures/leaves_oak.png"
+		self.bottom_tex = "textures/leaves_oak.png"
+
+		super().__init__(pos,self.top_tex,self.side_tex,self.bottom_tex)
+
+class Pumpkin(Block):
+	def __init__(self, pos):
+		self.top_tex = "textures/pumpkin_top.png"
+		self.side_tex = "textures/carved_pumpkin.png"
+		self.bottom_tex = "textures/pumpkin_side.png"
+
+		super().__init__(pos,self.top_tex,self.side_tex,self.bottom_tex)
+
+class Sand(Block):
+	def __init__(self,pos):
+		self.top_tex = "textures/sand.png"
+		self.side_tex = "textures/sand.png"
+		self.bottom_tex = "textures/sand.png"
+
+		super().__init__(pos,self.top_tex,self.side_tex,self.bottom_tex)
+
+class Snow(Block):
+	def __init__(self,pos):
+		self.top_tex = "textures/snow.png"
+		self.side_tex = "textures/grass_block_snow.png"
+		self.bottom_tex = "textures/dirt.png"
+
+		super().__init__(pos,self.top_tex,self.side_tex,self.bottom_tex)
+
+class Spruce(Block):
+	def __init__(self,pos):
+		self.top_tex = "textures/spruce_log_top.png"
+		self.side_tex = "textures/spruce_log.png"
+		self.bottom_tex = "textures/spruce_log_top.png"
+
+		super().__init__(pos,self.top_tex,self.side_tex,self.bottom_tex)
+
+class Stone(Block):
+	def __init__(self,pos):
+		self.top_tex = "textures/stone.png"
+		self.side_tex = "textures/stone.png"
+		self.bottom_tex = "textures/stone.png"
+
+		super().__init__(pos,self.top_tex,self.side_tex,self.bottom_tex)
+
+class Tnt(Block):
+    def __init__(self,pos):
+        self.top_tex = "textures/tnt_top.png"
+        self.side_tex = "textures/tnt_side.png"
+        self.bottom_tex = "textures/tnt_bottom.png"
+
+        super().__init__(pos,self.top_tex,self.side_tex,self.bottom_tex)
