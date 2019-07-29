@@ -21,6 +21,9 @@ SIDES = [
     ( 0, 0,-1),
 ]
 
+INVENTORY = ['Stone', 'Dirt', 'Grass', 'Ice', 'Sand', 'Spruce', 'Tnt', 'Snow', 'Bedrock', 'Leaves']
+
+
 class Player:
     def __init__(self,pos=(0,0,0),rot=(0,0)):
         self.pos = pos
@@ -72,6 +75,15 @@ class Player:
                 self.dy = JUMP_SPEED
         elif KEY == key.TAB:
             self.flying = not self.flying
+
+
+        '''
+
+        elif KEY == key._1:
+    '''
+
+
+
 
     def key_release(self,KEY,MOD):
         if KEY == key.W:

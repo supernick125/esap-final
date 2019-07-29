@@ -56,6 +56,9 @@ class Window(pyglet.window.Window):
             self.close()
         elif KEY == key.E:
             self.mouse_lock = not self.mouse_lock
+
+
+    
         self.player.key_press(KEY,MOD)
 
     def on_key_release(self,KEY,MOD):

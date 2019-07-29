@@ -1,5 +1,8 @@
 from chunk import *
 from pyglet.gl import *
+from pyglet.window import key
+import random 
+
 
 class World():
 
@@ -44,9 +47,16 @@ class World():
     def add_block(self,pos): #ADD TYPE VARIABLE
         if pos in self.world_coords:
             self.destroy_block(pos)
-        #Conditionals to change block type
 
-        added_block = Stone(pos)
+
+        Inv = [Stone(pos), Dirt(pos), Grass(pos), Ice(pos), Sand(pos), Spruce(pos), Tnt(pos), Snow(pos), Bedrock(pos), Leaves(pos)]
+
+        x = random.randint(0,8)
+      
+        
+        
+        added_block = Inv[x]
+           
 
 
         self.chunks[0].add_block(added_block) #CHUNK CHEESE HERE
