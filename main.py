@@ -1,10 +1,11 @@
 #Bobby and Nick ESAPCS July 2019
+
 import pygame
 import math
 import wave
 import sys
-import pyglet
 
+import pyglet
 from pyglet.gl import *
 from pyglet.window import key, mouse
 import pyglet.media
@@ -17,6 +18,7 @@ TICKS_PER_SEC = 60
 class Window(pyglet.window.Window):
 
     def __init__(self, *args, **kwargs):
+        """Initialize Window object and create important game objects"""
         super().__init__(*args, **kwargs)
         self.set_minimum_size(300,300)
         pyglet.clock.schedule_interval(self.update, 1.0 / TICKS_PER_SEC)
@@ -26,18 +28,21 @@ class Window(pyglet.window.Window):
         self.player = Player((9,5,9),(0,0))
 
     def setLock(self,state):
+        """Set mouse exclusivity state"""
         self.lock = state
         self.set_exclusive_mouse(state)
     lock = False
     mouse_lock = property(lambda self: self.lock,setLock)
 
     def update(self,dt):
+        """Built in update function runs consistently based on scheduler"""
         m = 8
         dt = min(dt, .2)
         for _ in range(m):
             self.player.update(dt / m,self.world.get_world_coords())
 
     def on_mouse_press(self,x,y,BUTTON,MOD):
+        """Built in functions runs on mouse press"""
         if self.mouse_lock:
             click = self.player.mouse_press(x,y,BUTTON,MOD,self.world.get_world_coords())
             if click == None:
@@ -48,23 +53,24 @@ class Window(pyglet.window.Window):
                 self.world.destroy_block(click[1])
 
     def on_mouse_motion(self,x,y,dx,dy):
+        """Built in function runs on mouse motion"""
         if self.mouse_lock:
             self.player.mouse_motion(dx,dy)
 
     def on_key_press(self,KEY,MOD):
+        """Built in function runs on key press"""
         if KEY == key.ESCAPE:
             self.close()
         elif KEY == key.E:
             self.mouse_lock = not self.mouse_lock
-
-
-    
         self.player.key_press(KEY,MOD)
 
     def on_key_release(self,KEY,MOD):
+        """Bulit in function runs on key release"""
         self.player.key_release(KEY,MOD)
 
     def on_resize(self,width,height):
+        """Built in function runs on window resize"""
         if self.reticle:
             self.reticle.delete()
         x,y = self.width // 2, self.height // 2
@@ -72,6 +78,7 @@ class Window(pyglet.window.Window):
         self.reticle = pyglet.graphics.vertex_list(4,("v2i", (x-n,y,x+n,y,x,y-n,x,y+n)))
 
     def set2d(self):
+        """Set openGL draw mode to 2d"""
         glDisable(GL_DEPTH_TEST)
         width = self.get_size()
         height = self.get_size()
@@ -84,6 +91,7 @@ class Window(pyglet.window.Window):
         glLoadIdentity()
 
     def set3d(self,pos,rot):
+        """Set openGL draw mode to 3d"""
         glEnable(GL_DEPTH_TEST)
         width = self.get_size()
         height = self.get_size()
@@ -100,6 +108,7 @@ class Window(pyglet.window.Window):
         glTranslatef(-pos[0],-pos[1],-pos[2])
 
     def on_draw(self):
+        """Built in draw function runs consistently"""
         self.clear()
         self.set3d(self.player.pos,self.player.rot)
         glColor3d(1,1,1)
@@ -108,40 +117,18 @@ class Window(pyglet.window.Window):
         self.draw_reticle()
 
     def draw_reticle(self):
+        """Draw reticle in center of screen"""
         glColor3d(0,0,0)
         self.reticle.draw(GL_LINES)
 
 def play_background_music():
-    # CHUNK_SIZE = 1024
-
-    # wf = wave.open('backgroundmusic.wav', 'rb')
-    # p = pyaudio.PyAudio()
-
-    # # open stream based on the wave object which has been input.
-    # stream = p.open(format =
-    #                 p.get_format_from_width(wf.getsampwidth()),
-    #                 channels = wf.getnchannels(),
-    #                 rate = wf.getframerate(),
-    #                 output = True)
-
-    # data = wf.readframes(CHUNK_SIZE)
-    # b = True
-    # while data != '':
-    #     stream.write(data)
-    #     data = wf.readframes(CHUNK_SIZE)
-    #     if b:
-    #         pyglet.app.run()
-    #         b = False
-
-
-    # stream.close()
-    # p.terminate()
-
+    """Start background music"""
     pygame.mixer.init()
     pygame.mixer.music.load('backgroundmusic.wav')
     pygame.mixer.music.play(999)
 
 def main():
+    """Main function create Window object and set openGL and fog settings"""
     window = Window(width=1250, height=750, caption='shitty mc', resizable=True)
     glEnable(GL_FOG)
     glClearColor(0.5, 0.69, 1.0, 1)

@@ -2,9 +2,11 @@ from pyglet.window import key
 from pyglet.window import mouse
 import math
 
+#Speed constants
 WALKING_SPEED = 5
 FLYING_SPEED = 10
 
+#Vertical movement constants
 GRAV = 20.0
 MAX_JUMP = 1.0
 JUMP_SPEED = math.sqrt(2 * GRAV * MAX_JUMP)
@@ -26,6 +28,7 @@ INVENTORY = ['Stone', 'Dirt', 'Grass', 'Ice', 'Sand', 'Spruce', 'Tnt', 'Snow', '
 
 class Player:
     def __init__(self,pos=(0,0,0),rot=(0,0)):
+        """Initialize Player object"""
         self.pos = pos
         self.rot = rot
         self.lat = [0,0] #lateral movement
@@ -33,6 +36,7 @@ class Player:
         self.flying = False
 
     def check_hit(self, world, max_dist=8):
+        """Return last two blocks hit by sight vector"""
         m = 8
         x,y,z = self.pos
         dx,dy,dz = self.get_sight_vector()
@@ -46,6 +50,7 @@ class Player:
         return None, None
 
     def mouse_press(self,x,y,BUTTON,MOD,world):
+        """Player function run on mouse press"""
         block, previous = self.check_hit(world)
         if BUTTON == mouse.RIGHT or \
             (BUTTON == mouse.LEFT) and (MOD & key.MOD_CTRL):
@@ -55,6 +60,7 @@ class Player:
             return ("break",block)
 
     def mouse_motion(self,dx,dy):
+        """Player function run on mouse motion"""
         m = 0.15
         x,y = self.rot
         x,y = x + dx * m, y + dy * m
@@ -62,6 +68,7 @@ class Player:
         self.rot = (x, y)
 
     def key_press(self,KEY,MOD):
+        """Player function run on key press"""
         if KEY == key.W:
             self.lat[0] -= 1
         elif KEY == key.S:
@@ -76,16 +83,8 @@ class Player:
         elif KEY == key.TAB:
             self.flying = not self.flying
 
-
-        '''
-
-        elif KEY == key._1:
-    '''
-
-
-
-
     def key_release(self,KEY,MOD):
+        """Player function run on key release"""
         if KEY == key.W:
             self.lat[0] += 1
         elif KEY == key.S:
@@ -96,6 +95,7 @@ class Player:
             self.lat[1] -= 1
 
     def get_sight_vector(self):
+        """Return player sight vector tuple"""
         x,y = self.rot
 
         q = math.cos(math.radians(y))
@@ -106,6 +106,7 @@ class Player:
         return (dx,dy,dz)
 
     def get_motion_vector(self):
+        """Return player motion vector tuple"""
         if any(self.lat):
             x,y = self.rot
             lat = math.degrees(math.atan2(*self.lat))
@@ -119,10 +120,8 @@ class Player:
                     m = 1
                 if self.lat[0] > 0:
                     dy *= -1
-
                 dx = math.cos(x_angle)
                 dz = math.sin(x_angle)
-            #flying?
             else:
                 dy = 0.0
                 dx = math.cos(x_angle)
@@ -134,6 +133,7 @@ class Player:
         return (dx,dy,dz)
 
     def update(self,dt,world):
+        """Player update function set new position"""
         speed = FLYING_SPEED if self.flying else WALKING_SPEED
         d = dt*speed
         dx,dy,dz = self.get_motion_vector()
@@ -147,6 +147,7 @@ class Player:
 
         x,y,z = self.pos
 
+        ## This turns off collision for flying:
         # if not self.flying:
         #     X,Y,Z = self.collide((x + dx,y + dy,z + dz), PLAYER_HEIGHT,world)
         # else:
@@ -155,11 +156,13 @@ class Player:
         self.pos = (X,Y,Z)
 
     def round_dis(self,pos):
+        """Return rounded position tuple"""
         x,y,z = pos
         x,y,z = (int(round(x)),int(round(y)),int(round(z)))
         return (x,y,z)
 
     def collide(self, pos, height, world):
+        """Return position tuple after adjusting for collision"""
         pad = 0.25
         p = list(pos)
         rp = self.round_dis(pos)

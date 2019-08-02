@@ -12,12 +12,14 @@ SIDES = [
 class Block:
 
     def get_tex(self,file):
+        """Return TextureGroup of specified image file"""
         tex = pyglet.image.load(file).get_texture()
         glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST)
         glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST)
         return pyglet.graphics.TextureGroup(tex)
 
-    def __init__(self,pos,top_tex,side_tex,bottom_tex):
+    def __init__(self,pos,top_tex,side_tex,bottom_tex): #ADD TYPE
+        """Initializes Block object"""
 
         self.top = self.get_tex(self.top_tex)
         self.side = self.get_tex(self.side_tex)
@@ -27,6 +29,7 @@ class Block:
         self.pos = pos
 
     def gen_exposed_key(self, world): #DONT CALL EVERY TIME
+        """Return exposure key based on which faces are exposed"""
         #true if not surrounded
         self.exposed_key = [0,0,0,0,0,0]
         x,y,z = self.pos
@@ -36,6 +39,7 @@ class Block:
         return self.exposed_key
 
     def add_to_batch(self, key):
+        """Create new Batch object containing faces specified by exposure key"""
         #Key is 6 long list of 1 and 0 (0,0,0,0,0,0)
         #Top Bottom Left Right Front Back
 
@@ -61,11 +65,14 @@ class Block:
             self.batch.add(4,GL_QUADS,self.side,("v3f",(X,y,z, x,y,z, x,Y,z, X,Y,z)), tex_coords) #Back
 
     def get_pos(self):
+        """Return position tuple"""
         return self.pos
 
     def draw(self):
+        """Block draw function draws batch instance"""
         self.batch.draw()
 
+#BLOCK SUBCLASSES (ALPHABETICAL)
 class Bedrock(Block):
     def __init__(self,pos):
         self.top_tex = "textures/bedrock.png"
