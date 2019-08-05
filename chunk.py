@@ -178,6 +178,7 @@ class Chunk:
         """Destroy block at specified position"""
         for i in range(len(self.blocks)):
             if self.blocks[i].get_pos() == destroyed_block:
+                self.blocks[i].on_destroy()
                 self.blocks.remove(self.blocks[i])
                 break
 

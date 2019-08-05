@@ -18,17 +18,16 @@ class Block:
         glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST)
         return pyglet.graphics.TextureGroup(tex)
 
-    def __init__(self,pos,top_tex,side_tex,bottom_tex): #ADD TYPE
+    def __init__(self,pos,top_tex,side_tex,bottom_tex):
         """Initializes Block object"""
 
         self.top = self.get_tex(self.top_tex)
         self.side = self.get_tex(self.side_tex)
         self.bottom = self.get_tex(self.bottom_tex)
 
-        #self.type = type
         self.pos = pos
 
-    def gen_exposed_key(self, world): #DONT CALL EVERY TIME
+    def gen_exposed_key(self, world):
         """Return exposure key based on which faces are exposed"""
         #true if not surrounded
         self.exposed_key = [0,0,0,0,0,0]
@@ -50,7 +49,6 @@ class Block:
         x,y,z = self.pos[0] - .5,self.pos[1] - .5,self.pos[2] - .5
         X,Y,Z =  self.pos[0] + .5,self.pos[1] + .5,self.pos[2] + .5
 
-        #(1,0,0,1,0,0)
         if key[0]:
             self.batch.add(4,GL_QUADS,self.top,("v3f",(x,Y,Z, X,Y,Z, X,Y,z, x,Y,z)), tex_coords) #Top
         if key[1]:
@@ -63,6 +61,9 @@ class Block:
             self.batch.add(4,GL_QUADS,self.side,("v3f",(x,y,Z, X,y,Z, X,Y,Z, x,Y,Z)), tex_coords) #Front
         if key[5]:
             self.batch.add(4,GL_QUADS,self.side,("v3f",(X,y,z, x,y,z, x,Y,z, X,Y,z)), tex_coords) #Back
+
+    def on_destroy(self):
+        pass
 
     def get_pos(self):
         """Return position tuple"""
@@ -168,3 +169,6 @@ class Tnt(Block):
         self.bottom_tex = "textures/tnt_bottom.png"
 
         super().__init__(pos,self.top_tex,self.side_tex,self.bottom_tex)
+
+    def on_destroy(self):
+        print("BOOM")
