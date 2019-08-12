@@ -178,13 +178,19 @@ class Chunk:
         """Destroy block at specified position"""
         for i in range(len(self.blocks)):
             if self.blocks[i].get_pos() == destroyed_block:
-                self.blocks[i].on_destroy()
+                on_destroy = self.blocks[i].on_destroy()
                 self.blocks.remove(self.blocks[i])
-                break
+                return on_destroy
 
     def get_coords(self):
         """Return block coordinates list"""
         return self.block_coords
+
+    def get_block(self,pos):
+        """Return block object with given position"""
+        for block in self.blocks:
+            if block.get_pos() == pos:
+                return block
 
     def draw(self,world):
         """Chunk draw function draws all Blocks in list"""

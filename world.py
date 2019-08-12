@@ -53,9 +53,7 @@ class World():
         if pos in self.world_coords:
             self.destroy_block(pos)
 
-        Inv = [Stone(pos), Dirt(pos), Grass(pos), Ice(pos), Sand(pos), Spruce(pos), Tnt(pos), Snow(pos), Bedrock(pos), Leaves(pos)]
-        x = random.randint(0,8)
-        added_block = Inv[x]
+        added_block = Tnt(pos)
 
         self.chunks[0].add_block(added_block) #CHUNK CHEESE HERE
         self.world_coords.append(added_block.get_pos())
@@ -64,12 +62,22 @@ class World():
 
     def destroy_block(self,pos):
         """Destroy block at specified position"""
+        is_tnt = False
         for chunk in self.chunks:
             if pos in chunk.get_coords():
                 #update_chunk = self.chunks.index(chunk)
-                chunk.destroy_block(pos)
+                destroyed_block = chunk.get_block(pos)
+                on_destroy = chunk.destroy_block(pos)
+                print(on_destroy)
+                if on_destroy != None:
+                    if isinstance(destroyed_block,Tnt):
+                        is_tnt = True
         self.world_coords.remove(pos)
         self.update_neighbors(pos)
+        if is_tnt:
+            for block in on_destroy:
+                if block in self.world_coords:
+                    self.destroy_block(block)
 
     def draw(self):
         """World draw function draws all Chunks in list"""

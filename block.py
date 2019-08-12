@@ -63,7 +63,7 @@ class Block:
             self.batch.add(4,GL_QUADS,self.side,("v3f",(X,y,z, x,y,z, x,Y,z, X,Y,z)), tex_coords) #Back
 
     def on_destroy(self):
-        pass
+        return None
 
     def get_pos(self):
         """Return position tuple"""
@@ -168,7 +168,12 @@ class Tnt(Block):
         self.side_tex = "textures/tnt_side.png"
         self.bottom_tex = "textures/tnt_bottom.png"
 
-        super().__init__(pos,self.top_tex,self.side_tex,self.bottom_tex)
+        self.pos = pos
+
+        super().__init__(self.pos,self.top_tex,self.side_tex,self.bottom_tex)
 
     def on_destroy(self):
-        print("BOOM")
+        exploded_blocks = []
+        for dx,dy,dz in SIDES:
+            exploded_blocks.append((self.pos[0] + dx,self.pos[1] + dy,self.pos[2] + dz))
+        return exploded_blocks
