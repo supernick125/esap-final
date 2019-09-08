@@ -23,9 +23,6 @@ SIDES = [
     ( 0, 0,-1),
 ]
 
-INVENTORY = ['Stone', 'Dirt', 'Grass', 'Ice', 'Sand', 'Spruce', 'Tnt', 'Snow', 'Bedrock', 'Leaves']
-
-
 class Player:
     def __init__(self,pos=(0,0,0),rot=(0,0)):
         """Initialize Player object"""
@@ -147,12 +144,12 @@ class Player:
 
         x,y,z = self.pos
 
-        ## This turns off collision for flying:
-        # if not self.flying:
-        #     X,Y,Z = self.collide((x + dx,y + dy,z + dz), PLAYER_HEIGHT,world)
-        # else:
-        #     X,Y,Z = x + dx,y + dy,z + dz
-        X,Y,Z = self.collide((x + dx,y + dy,z + dz), PLAYER_HEIGHT,world)
+        # This turns off collision for flying:
+        if not self.flying:
+            X,Y,Z = self.collide((x + dx,y + dy,z + dz), PLAYER_HEIGHT,world)
+        else:
+            X,Y,Z = x + dx,y + dy,z + dz
+        #X,Y,Z = self.collide((x + dx,y + dy,z + dz), PLAYER_HEIGHT,world)
         self.pos = (X,Y,Z)
 
     def round_dis(self,pos):

@@ -9,6 +9,25 @@ SIDES = [
     ( 0, 0,-1),
 ]
 
+EXPLODE = [
+    ( 0, 1, 0),
+    ( 0, 1, 1),
+    ( 0, 1,-1),
+    ( 0,-1, 0),
+    ( 0,-1, 1),
+    ( 0,-1,-1),
+    ( 1, 0, 0),
+    ( 1, 1, 0),
+    ( 1,-1, 0),
+    (-1, 0, 0),
+    (-1, 1, 0),
+    (-1,-1, 0),
+    ( 1, 0, 1),
+    ( 1, 0,-1),
+    (-1, 0, 1),
+    (-1, 0,-1),
+]
+
 class Block:
 
     def get_tex(self,file):
@@ -174,6 +193,6 @@ class Tnt(Block):
 
     def on_destroy(self):
         exploded_blocks = []
-        for dx,dy,dz in SIDES:
+        for dx,dy,dz in EXPLODE:
             exploded_blocks.append((self.pos[0] + dx,self.pos[1] + dy,self.pos[2] + dz))
         return exploded_blocks

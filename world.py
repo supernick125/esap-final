@@ -48,12 +48,17 @@ class World():
                 if key in chunk.get_coords():
                     chunk.update_neighbors(key,self.world_coords)
 
-    def add_block(self,pos): #ADD TYPE VARIABLE
+    def add_block(self,pos,place): #ADD TYPE VARIABLE
         """Add block at the specified position"""
         if pos in self.world_coords:
             self.destroy_block(pos)
 
-        added_block = Tnt(pos)
+        if place == "stone":
+            added_block = Stone(pos)
+        elif place == "dirt":
+            added_block = Dirt(pos)
+        elif place == "tnt":
+            added_block = Tnt(pos)
 
         self.chunks[0].add_block(added_block) #CHUNK CHEESE HERE
         self.world_coords.append(added_block.get_pos())
@@ -68,7 +73,6 @@ class World():
                 #update_chunk = self.chunks.index(chunk)
                 destroyed_block = chunk.get_block(pos)
                 on_destroy = chunk.destroy_block(pos)
-                print(on_destroy)
                 if on_destroy != None:
                     if isinstance(destroyed_block,Tnt):
                         is_tnt = True

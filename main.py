@@ -27,6 +27,8 @@ class Window(pyglet.window.Window):
         self.world = World()
         self.player = Player((9,5,9),(0,0))
 
+        self.place = "stone"
+
     def setLock(self,state):
         """Set mouse exclusivity state"""
         self.lock = state
@@ -48,7 +50,7 @@ class Window(pyglet.window.Window):
             if click == None:
                 pass
             elif click[0] == "build":
-                self.world.add_block(click[1])
+                self.world.add_block(click[1],self.place)
             elif click[0] == "break":
                 self.world.destroy_block(click[1])
 
@@ -63,6 +65,12 @@ class Window(pyglet.window.Window):
             self.close()
         elif KEY == key.E:
             self.mouse_lock = not self.mouse_lock
+        elif KEY == key.Z:
+            self.place = "stone"
+        elif KEY == key.X:
+            self.place = "dirt"
+        elif KEY == key.C:
+            self.place = "tnt"
         self.player.key_press(KEY,MOD)
 
     def on_key_release(self,KEY,MOD):
